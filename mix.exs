@@ -33,12 +33,15 @@ defmodule Sandwich.Mixfile do
     [{:phoenix, "~> 1.4"},
      {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_ecto, "~> 3.0"},
+     {:poison, "~> 3.0"},
      {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.6"},
      {:phoenix_slime, "~> 0.12.0"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 2.0"},
+     {:plug_cowboy, "~> 2.0"}
+    ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

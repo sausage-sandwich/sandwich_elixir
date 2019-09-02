@@ -16,7 +16,9 @@ defmodule Sandwich.Router do
   scope "/", Sandwich do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", RecipesController, :index
+
+    resources "/recipes", RecipesController
   end
 
   # Other scopes may use custom stacks.

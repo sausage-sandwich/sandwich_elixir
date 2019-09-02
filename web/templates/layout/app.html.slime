@@ -1,0 +1,21 @@
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    meta content="width=device-width, initial-scale=1" name="viewport"
+    meta content="" name="description"
+    meta content="" name="author"
+    link rel="stylesheet" href="#{static_path(@conn, "/css/app.css")}"
+    title Hello Sandwich!
+
+  body
+    .container
+      header.header
+        nav role="navigation"
+
+      p.alert.alert-info role="alert"= get_flash(@conn, :info)
+      p.alert.alert-danger role="alert"= get_flash(@conn, :error)
+
+      main role="main"
+        = render @view_module, @view_template, assigns

@@ -1,0 +1,15 @@
+= link "<- Back", to: recipes_path(@conn, :index)
+
+= form_for @changeset, recipes_path(@conn, :create), fn f ->
+  .form-group
+    = label f, :title, class: "control-label"
+    = text_input f, :title, class: "form-control"
+    = error_tag f, :title
+
+  .form-group
+    = label f, :body, class: "control-label"
+    = textarea f, :body, class: "form-control"
+    = error_tag f, :body
+
+  .form-group
+    = submit "Submit", class: "btn btn-primary"
