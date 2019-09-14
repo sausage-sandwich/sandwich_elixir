@@ -1,0 +1,6 @@
+= link "New", to: ingredients_path(@conn, :new), class: 'btn btn-success'
+
+= for ingredient <- @ingredients do
+  .row
+    .col-md-8
+      = ingredient.title

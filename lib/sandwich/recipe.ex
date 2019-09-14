@@ -6,6 +6,13 @@ defmodule Sandwich.Recipe do
     field :body, :string
     field :title, :string
 
+    many_to_many(
+      :ingredients,
+      Sandwich.Ingredient,
+      join_through: "recipe_ingredients",
+      on_replace: :delete
+    )
+
     timestamps()
   end
 
@@ -14,5 +21,11 @@ defmodule Sandwich.Recipe do
     recipe
     |> cast(attrs, [:title, :body])
     |> validate_required([:title, :body])
+  end
+
+  def changeset_update_ingredients(%Sandwich.Recipe{} = recipe, ingredients) do
+    recipe
+    |> cast(%{}, @required_fields)
+    |> put_assoc(:ingredients, ingredients)
   end
 end
