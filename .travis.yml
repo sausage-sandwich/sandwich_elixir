@@ -1,0 +1,7 @@
+language: elixir
+elixir: '1.9'
+otp_release: '22.0'
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database sandwich_test;' -U postgres
