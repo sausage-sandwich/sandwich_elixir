@@ -19,6 +19,7 @@ defmodule Sandwich.Router do
     get "/", RecipesController, :index
 
     resources "/recipes", RecipesController
+    resources "/ingredients", IngredientsController
   end
 
   # Other scopes may use custom stacks.

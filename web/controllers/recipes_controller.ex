@@ -9,6 +9,15 @@ defmodule Sandwich.RecipesController do
     render conn, "index.html", recipes: recipes
   end
 
+  def show(conn, params) do
+    alias Sandwich.Repo
+    alias Sandwich.Recipe
+
+    recipe = Repo.preload(Repo.get_by(Recipe, id: params["id"]), :ingredients)
+
+    render conn, "show.html", recipe: recipe
+  end
+
   def new(conn, _params) do
     alias Sandwich.Recipe
     changeset = Recipe.changeset(%Recipe{}, %{})
@@ -22,7 +31,7 @@ defmodule Sandwich.RecipesController do
     |> Recipe.changeset(recipe_params)
     |> Repo.insert()
     |> case do
-      {:ok, recipe} ->
+      {:ok, _recipe} ->
         conn
         |> put_flash(:info, "Recipe saved")
         |> redirect(to: recipes_path(conn, :index))
