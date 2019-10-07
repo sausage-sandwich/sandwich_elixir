@@ -16,6 +16,7 @@ defmodule Sandwich.RecipesControllerTest do
 
   test "GET :new", %{conn: conn} do
     conn = get conn, recipes_path(conn, :new)
+
     assert html_response(conn, 200)
   end
 
