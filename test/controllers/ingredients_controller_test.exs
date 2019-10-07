@@ -3,6 +3,7 @@ defmodule Sandwich.IngredientsControllerTest do
 
   test "GET :index", %{conn: conn} do
     conn = get conn, ingredients_path(conn, :index)
+
     assert html_response(conn, 200)
   end
 
@@ -14,6 +15,7 @@ defmodule Sandwich.IngredientsControllerTest do
 
   test "POST :create", %{conn: conn} do
     ingredient_title = "carrot"
+
     conn = post conn, ingredients_path(conn, :create, %{"ingredient" => %{"title" => ingredient_title}})
 
     assert html_response(conn, 302)
