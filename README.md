@@ -6,9 +6,9 @@
 
 `bin/setup`
 
-To start your Phoenix app:
+## Run
 
-  * Start Phoenix endpoint with `mix phoenix.server`
+`bin/start`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
