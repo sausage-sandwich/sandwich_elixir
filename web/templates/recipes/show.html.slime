@@ -1,5 +1,5 @@
 = link "All", to: recipes_path(@conn, :index), class: 'btn btn-success'
-
+= link "Edit", to: recipes_path(@conn, :edit, @recipe.id), class: 'btn btn-warning'
 .row
   .col-md-8
     h3 = @recipe.title
