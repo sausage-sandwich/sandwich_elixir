@@ -28,4 +28,22 @@ defmodule Sandwich.RecipesControllerTest do
     assert html_response(conn, 302)
     assert Sandwich.Repo.get_by(Sandwich.Recipe, title: recipe_title)
   end
+
+  test "GET :edit", %{conn: conn} do
+    recipe = Sandwich.Repo.insert!(%Sandwich.Recipe{title: "title", body: "body"})
+
+    conn = get conn, recipes_path(conn, :edit, recipe.id)
+
+    assert html_response(conn, 200)
+  end
+
+  test "PUT :update", %{conn: conn} do
+    recipe = Sandwich.Repo.insert!(%Sandwich.Recipe{title: "title", body: "body"})
+    new_title = "new title"
+
+    conn = put conn, recipes_path(conn, :update, recipe.id, [recipe: [title: new_title]])
+
+    assert html_response(conn, 302)
+    assert Sandwich.Repo.get_by(Sandwich.Recipe, title: new_title)
+  end
 end

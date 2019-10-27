@@ -3,5 +3,5 @@
 = for recipe <- @recipes do
   .row
     .col-md-8
-      h3= recipe.title
+      h3= link recipe.title, to: recipes_path(@conn, :show, recipe.id)
       = recipe.body
