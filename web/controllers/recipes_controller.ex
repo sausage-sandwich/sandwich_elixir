@@ -16,7 +16,8 @@ defmodule Sandwich.RecipesController do
   end
 
   def new(conn, _params) do
-    changeset = Recipe.changeset(%Recipe{}, %{})
+    changeset = Recipe.changeset(%Recipe{ingredients: [%Ingredient{}]}, %{})
+
     render(conn, "new.html", changeset: changeset)
   end
 

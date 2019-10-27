@@ -21,6 +21,7 @@ defmodule Sandwich.Recipe do
     recipe
     |> cast(attrs, [:title, :body])
     |> validate_required([:title, :body])
+    |> cast_assoc(:ingredients)
   end
 
   def changeset_update_ingredients(%Sandwich.Recipe{} = recipe, ingredients) do
