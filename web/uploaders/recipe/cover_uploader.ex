@@ -24,9 +24,4 @@ defmodule Sandwich.Recipe.CoverUploader do
   def filename(version, _) do
     version
   end
-
-  # Provide a default URL if there hasn't been a file uploaded
-  # def default_url(version, scope) do
-  #   "/missing.png"
-  # end
 end
