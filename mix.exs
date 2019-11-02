@@ -40,7 +40,9 @@ defmodule Sandwich.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 2.0"},
-     {:plug_cowboy, "~> 2.0"}
+     {:plug_cowboy, "~> 2.0"},
+     {:waffle, ">= 0.0.0"},
+     {:waffle_ecto, ">= 0.0.0"}
     ]
   end
 

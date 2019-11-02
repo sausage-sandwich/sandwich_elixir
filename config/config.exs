@@ -27,6 +27,10 @@ config :phoenix, :template_engines,
   slime: PhoenixSlime.Engine,
   slimleex: PhoenixSlime.LiveViewEngine
 
+config :waffle,
+  storage: Waffle.Storage.Local,
+  storage_dir_prefix: "priv/waffle/public"
+
 config :phoenix_slime, :use_slim_extension, true
 
 # Import environment specific config. This must remain at the bottom
