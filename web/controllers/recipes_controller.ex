@@ -1,7 +1,9 @@
 defmodule Sandwich.RecipesController do
   use Sandwich.Web, :controller
+
   alias Sandwich.Repo
   alias Sandwich.Recipe
+  alias Sandwich.Ingredient
 
   def index(conn, _params) do
     recipes = Repo.all(Recipe)
