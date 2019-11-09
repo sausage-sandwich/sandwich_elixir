@@ -43,9 +43,10 @@ defmodule Sandwich.RecipesController do
 
   def edit(conn, params) do
     recipe = Repo.preload(Repo.get_by(Recipe, id: params["id"]), :ingredients)
+    ingredients = Repo.all(Ingredient)
     changeset = Recipe.changeset(recipe, %{})
 
-    render(conn, "edit.html", recipe: recipe, changeset: changeset)
+    render(conn, "edit.html", recipe: recipe, ingredients: ingredients, changeset: changeset)
   end
 
   def update(conn, %{"recipe" => recipe_params, "id" => id}) do
