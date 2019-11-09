@@ -5,12 +5,8 @@ defmodule Sandwich.RecipeIngredient do
   schema "recipe_ingredients" do
     field :quantity, :float
     field :unit, :string
-    # field :recipe, :id
-    # field :ingredient, :id
     belongs_to(:recipe, Sandwich.Recipe, primary_key: true)
     belongs_to(:ingredient, Sandwich.Ingredient, primary_key: true)
-
-    timestamps()
   end
 
   @doc false

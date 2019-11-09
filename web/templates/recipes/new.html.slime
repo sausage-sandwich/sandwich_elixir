@@ -6,11 +6,9 @@
     = text_input f, :title, class: "form-control"
     = error_tag f, :title
 
-  = inputs_for f, :ingredients, fn i ->
-    .form-group
-      = label i, :title, class: "control-label"
-      = text_input f, :title, class: "form-control"
-      = error_tag f, :title
+  .form-group
+    = label f, :ingredients, class: "control-label"
+    = multiple_select(f, :ingredients, Map.new(@ingredients, fn i -> {i.title, i.id} end), selected: Enum.map(f.data.ingredients, &(&1.id)), class: "form-control")
 
   .form-group
     = label f, :body, class: "control-label"

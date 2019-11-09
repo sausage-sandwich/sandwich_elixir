@@ -19,13 +19,17 @@ defmodule Sandwich.RecipesController do
 
   def new(conn, _params) do
     changeset = Recipe.changeset(%Recipe{ingredients: [%Ingredient{}]}, %{})
+    ingredients = Repo.all(Ingredient)
 
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, ingredients: ingredients)
   end
 
   def create(conn, %{"recipe" => recipe_params}) do
+    ingredients = from(i in Ingredient, where: i.id in ^recipe_params["ingredients"]) |> Repo.all
+    params_with_ingredients = Map.replace!(recipe_params, "ingredients", ingredients)
+
     %Recipe{}
-    |> Recipe.changeset(recipe_params)
+    |> Recipe.changeset(params_with_ingredients)
     |> Repo.insert()
     |> case do
       {:ok, _recipe} ->
