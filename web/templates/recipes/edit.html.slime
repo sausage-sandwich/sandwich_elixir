@@ -12,7 +12,7 @@
 
   .form-group
     = label f, :ingredients, class: "control-label"
-    = multiple_select(f, :ingredients, Map.new(@ingredients, fn i -> {i.title, i.id} end), selected: Enum.map(f.data.ingredients, &(&1.id)), class: "form-control")
+    = multiple_select(f, :ingredients, Map.new(@ingredients, &({&1.title, &1.id})), selected: Enum.map(f.data.ingredients, &(&1.id)), class: "form-control")
 
   .form-group
     = label f, :body, class: "control-label"

@@ -3,6 +3,7 @@ defmodule Sandwich.RecipesControllerTest do
 
   alias Sandwich.Repo
   alias Sandwich.Recipe
+  alias Sandwich.Ingredient
 
   test "GET :index", %{conn: conn} do
     conn = get conn, recipes_path(conn, :index)
@@ -25,11 +26,16 @@ defmodule Sandwich.RecipesControllerTest do
 
   test "POST :create", %{conn: conn} do
     recipe_title = "title"
+    ingredient = Repo.insert!(%Ingredient{title: "Carrot"})
 
-    conn = post conn, recipes_path(conn, :create), [recipe: [body: "body", title: recipe_title, ingredients: [1]]]
+    conn = post conn, recipes_path(conn, :create),
+      [recipe: [body: "body", title: recipe_title, ingredients: [ingredient.id]]]
+
+    created_recipe = Repo.preload(Repo.get_by(Recipe, title: recipe_title), :ingredients)
 
     assert html_response(conn, 302)
-    assert Repo.get_by(Sandwich.Recipe, title: recipe_title)
+    assert created_recipe
+    assert Enum.member?(created_recipe.ingredients, ingredient)
   end
 
   test "GET :edit", %{conn: conn} do
