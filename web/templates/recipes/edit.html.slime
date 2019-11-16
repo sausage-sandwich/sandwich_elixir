@@ -1,10 +1,14 @@
 = link "<- Back", to: recipes_path(@conn, :index)
 
-= form_for @changeset, recipes_path(@conn, :update, @recipe.id), fn f ->
+= form_for @changeset, recipes_path(@conn, :update, @recipe.id), [multipart: true], fn f ->
   .form-group
     = label f, :title, class: "control-label"
     = text_input f, :title, class: "form-control"
     = error_tag f, :title
+
+  = label f, :cover, class: "control-label"
+  = file_input f, :cover, class: "form-control-file"
+  = error_tag f, :cover
 
   .form-group
     = label f, :ingredients, class: "control-label"
