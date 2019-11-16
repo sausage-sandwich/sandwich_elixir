@@ -11,6 +11,9 @@ defmodule Sandwich.Endpoint do
     at: "/", from: :sandwich, gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
+  plug Plug.Static,
+    at: "/uploads", from: Path.expand("priv/waffle/public/uploads"), gzip: false
+
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do

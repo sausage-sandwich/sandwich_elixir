@@ -3,6 +3,8 @@
 .row
   .col-md-8
     h3 = @recipe.title
+    = if @recipe.cover do
+      = img_tag Sandwich.Recipe.CoverUploader.url({@recipe.cover.file_name, @recipe})
     = for ingredient <- @recipe.ingredients do
       p = ingredient.title
     = @recipe.body
