@@ -16,7 +16,7 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
 
 ## Testing
 
-`mix test`
+`bin/test`
 
 ## Learn more
 

@@ -23,12 +23,7 @@ defmodule Sandwich.Recipe do
     recipe
     |> cast(attrs, [:title, :body])
     |> cast_attachments(attrs, [:cover])
+    |> put_assoc(:ingredients, attrs["ingredients"])
     |> validate_required([:title, :body])
-  end
-
-  def changeset_update_ingredients(%Sandwich.Recipe{} = recipe, ingredients) do
-    recipe
-    |> cast(%{}, @required_fields)
-    |> put_assoc(:ingredients, ingredients)
   end
 end
