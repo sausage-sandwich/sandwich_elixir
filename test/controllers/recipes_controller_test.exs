@@ -29,7 +29,15 @@ defmodule Sandwich.RecipesControllerTest do
     ingredient = Repo.insert!(%Ingredient{title: "Carrot"})
 
     conn = post conn, recipes_path(conn, :create),
-      [recipe: [body: "body", title: recipe_title, ingredients: [ingredient.id]]]
+      %{
+        recipe: %{
+          body: "body",
+          title: recipe_title,
+          ingredients: [
+            %{id: ingredient.id}
+          ]
+        }
+      }
 
     created_recipe = Repo.preload(Repo.get_by(Recipe, title: recipe_title), :ingredients)
 

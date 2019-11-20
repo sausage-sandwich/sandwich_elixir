@@ -8,12 +8,7 @@ defmodule Sandwich.Recipe do
     field :title, :string
     field :cover, Sandwich.Recipe.CoverUploader.Type
 
-    many_to_many(
-      :ingredients,
-      Sandwich.Ingredient,
-      join_through: "recipe_ingredients",
-      on_replace: :delete
-    )
+    has_many(:recipe_ingredients, Sandwich.RecipeIngredient, on_replace: :delete)
 
     timestamps()
   end
@@ -23,7 +18,7 @@ defmodule Sandwich.Recipe do
     recipe
     |> cast(attrs, [:title, :body])
     |> cast_attachments(attrs, [:cover])
-    |> put_assoc(:ingredients, attrs["ingredients"])
+    |> cast_assoc(:recipe_ingredients)
     |> validate_required([:title, :body])
   end
 end
