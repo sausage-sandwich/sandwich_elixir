@@ -41,7 +41,8 @@ defmodule Sandwich.RecipesController do
         |> put_flash(:info, "Recipe saved")
         |> redirect(to: recipes_path(conn, :index))
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        ingredients = Repo.all(Ingredient)
+        render(conn, "new.html", changeset: changeset, ingredients: ingredients)
     end
   end
 
@@ -54,7 +55,7 @@ defmodule Sandwich.RecipesController do
   end
 
   def update(conn, %{"recipe" => recipe_params, "id" => id}) do
-    recipe = Repo.preload(Repo.get_by(Recipe, id: id), :ingredients)
+    recipe = Repo.preload(Repo.get_by(Recipe, id: id), recipe_ingredients: :ingredient)
 
     recipe
     |> Recipe.changeset(recipe_params)
@@ -65,7 +66,8 @@ defmodule Sandwich.RecipesController do
       |> put_flash(:info, "Recipe updated")
       |> redirect(to: recipes_path(conn, :show, recipe.id))
     {:error, %Ecto.Changeset{} = changeset} ->
-      render(conn, "edit.html", changeset: changeset, recipe: recipe)
+      ingredients = Repo.all(Ingredient)
+      render(conn, "edit.html", changeset: changeset, recipe: recipe, ingredients: ingredients)
     end
   end
 end

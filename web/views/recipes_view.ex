@@ -5,7 +5,8 @@ defmodule Sandwich.RecipesView do
     [
       "кг",
       "г",
-      "шт"
+      "шт",
+      "мл"
     ]
   end
 end
