@@ -6,14 +6,13 @@
     = text_input f, :title, class: "form-control"
     = error_tag f, :title
 
-    .form-inline
-      .nested-form
-        = inputs_for f, :recipe_ingredients, fn p ->
-          .nested-form-item-fields.form-group
-            = select p, :ingredient_id, Map.new(@ingredients, &({&1.title, &1.id})), class: "form-control"
-            = number_input p, :quantity, class: "form-control"
-            = select p, :unit, units, class: "form-control"
-        .nested-form-add-button.btn.btn-warning Add
+    .form-inline.js-repeatable
+      = inputs_for f, :recipe_ingredients, fn p ->
+        .js-repeatable-block.form-group
+          = select p, :ingredient_id, Map.new(@ingredients, &({&1.title, &1.id})), class: "form-control"
+          = number_input p, :quantity, class: "form-control"
+          = select p, :unit, units, class: "form-control"
+        .js-repeatable-block-add-button.btn.btn-warning Add
 
   .form-group
     = label f, :body, class: "control-label"

@@ -12,7 +12,7 @@
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
 import "phoenix_html"
-import "./nested_form"
+import "./repeatable_block"
 
 // Import local files
 //
