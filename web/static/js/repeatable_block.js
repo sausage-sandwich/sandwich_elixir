@@ -1,3 +1,11 @@
+// .js-repeatable - container that must include n
+// .js-repeatable-block-add-button - a control to add a block
+// and .js-rebeatable-block - the block that must be duplicated and appended into the container
+// example:
+// .js-repeatable
+//   .js-repeatable-block-add-button.btn.btn-danger Add
+//   .js-rebeatable-block I will be repeated!
+
 document.addEventListener("DOMContentLoaded", function(event) {
   var nestedForms = Array.from(document.getElementsByClassName("js-repeatable"));
 
