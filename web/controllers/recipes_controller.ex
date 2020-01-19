@@ -4,6 +4,7 @@ defmodule Sandwich.RecipesController do
   alias Sandwich.Repo
   alias Sandwich.Recipe
   alias Sandwich.Ingredient
+  alias Sandwich.RecipeIngredient
 
   def index(conn, _params) do
     recipes = Repo.all(Recipe)
@@ -12,24 +13,27 @@ defmodule Sandwich.RecipesController do
   end
 
   def show(conn, params) do
-    recipe = Repo.preload(Repo.get_by(Recipe, id: params["id"]), :ingredients)
+    recipe = Repo.preload(Repo.get_by(Recipe, id: params["id"]), [recipe_ingredients: :ingredient])
 
     render conn, "show.html", recipe: recipe
   end
 
   def new(conn, _params) do
-    changeset = Recipe.changeset(%Recipe{ingredients: [%Ingredient{}]}, %{})
+    changeset = Recipe.changeset(%Recipe{recipe_ingredients: [%RecipeIngredient{ingredient: %Ingredient{}}]}, %{})
     ingredients = Repo.all(Ingredient)
 
     render(conn, "new.html", changeset: changeset, ingredients: ingredients)
   end
 
   def create(conn, %{"recipe" => recipe_params}) do
-    ingredients = from(i in Ingredient, where: i.id in ^recipe_params["ingredients"]) |> Repo.all
-    params_with_ingredients = Map.replace!(recipe_params, "ingredients", ingredients)
+    normalized_params = Map.replace!(
+      recipe_params,
+      "recipe_ingredients",
+      Map.values(recipe_params["recipe_ingredients"])
+    )
 
     %Recipe{}
-    |> Recipe.changeset(params_with_ingredients)
+    |> Recipe.changeset(normalized_params)
     |> Repo.insert()
     |> case do
       {:ok, _recipe} ->
@@ -37,12 +41,13 @@ defmodule Sandwich.RecipesController do
         |> put_flash(:info, "Recipe saved")
         |> redirect(to: recipes_path(conn, :index))
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        ingredients = Repo.all(Ingredient)
+        render(conn, "new.html", changeset: changeset, ingredients: ingredients)
     end
   end
 
   def edit(conn, params) do
-    recipe = Repo.preload(Repo.get_by(Recipe, id: params["id"]), :ingredients)
+    recipe = Repo.preload(Repo.get_by(Recipe, id: params["id"]), :recipe_ingredients)
     ingredients = Repo.all(Ingredient)
     changeset = Recipe.changeset(recipe, %{})
 
@@ -50,13 +55,10 @@ defmodule Sandwich.RecipesController do
   end
 
   def update(conn, %{"recipe" => recipe_params, "id" => id}) do
-    recipe = Repo.preload(Repo.get_by(Recipe, id: id), :ingredients)
-    ingredients = from(i in Ingredient, where: i.id in ^recipe_params["ingredients"]) |> Repo.all
-    params_with_ingredients = Map.replace!(recipe_params, "ingredients", ingredients)
-
+    recipe = Repo.preload(Repo.get_by(Recipe, id: id), recipe_ingredients: :ingredient)
 
     recipe
-    |> Recipe.changeset(params_with_ingredients)
+    |> Recipe.changeset(recipe_params)
     |> Repo.update()
     |> case do
     {:ok, recipe} ->
@@ -64,7 +66,8 @@ defmodule Sandwich.RecipesController do
       |> put_flash(:info, "Recipe updated")
       |> redirect(to: recipes_path(conn, :show, recipe.id))
     {:error, %Ecto.Changeset{} = changeset} ->
-      render(conn, "edit.html", changeset: changeset, recipe: recipe)
+      ingredients = Repo.all(Ingredient)
+      render(conn, "edit.html", changeset: changeset, recipe: recipe, ingredients: ingredients)
     end
   end
 end

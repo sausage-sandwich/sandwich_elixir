@@ -29,13 +29,21 @@ defmodule Sandwich.RecipesControllerTest do
     ingredient = Repo.insert!(%Ingredient{title: "Carrot"})
 
     conn = post conn, recipes_path(conn, :create),
-      [recipe: [body: "body", title: recipe_title, ingredients: [ingredient.id]]]
+      %{
+        recipe: %{
+          body: "body",
+          title: recipe_title,
+          recipe_ingredients: %{
+            "0" => %{ingredient_id: ingredient.id, quantity: 100.0, unit: "г"}
+          }
+        }
+      }
 
-    created_recipe = Repo.preload(Repo.get_by(Recipe, title: recipe_title), :ingredients)
+    created_recipe = Repo.preload(Repo.get_by(Recipe, title: recipe_title), recipe_ingredients: :ingredient)
 
     assert html_response(conn, 302)
     assert created_recipe
-    assert Enum.member?(created_recipe.ingredients, ingredient)
+    assert Enum.member?(Enum.map(created_recipe.recipe_ingredients, &(&1.ingredient)), ingredient)
   end
 
   test "GET :edit", %{conn: conn} do

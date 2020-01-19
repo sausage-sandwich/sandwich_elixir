@@ -12,11 +12,11 @@ defmodule Sandwich.RecipeIngredient do
   @doc false
   def changeset(recipe_ingredient, attrs) do
     recipe_ingredient
-    |> cast(attrs, [:quantity, :unit])
+    |> cast(attrs, [:quantity, :unit, :ingredient_id, :recipe_id])
     |> validate_required([:quantity, :unit])
     |> foreign_key_constraint(:recipe_id)
     |> foreign_key_constraint(:ingredient_id)
-    |> unique_constraint([:recipe, :ingredient],
+    |> unique_constraint(:unique_recipe_ingredient,
       name: :recipe_id_ingredient_id_unique_index,
       message: @already_exists)
   end
