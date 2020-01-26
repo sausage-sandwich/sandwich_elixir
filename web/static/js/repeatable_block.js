@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   function addBlock(container) {
-    var block = container.getElementsByClassName("js-repeatable-block");
+    var block = Array.from(container.getElementsByClassName("js-repeatable-block"))[0];
     var newNode = createNewNode(block);
     block.appendChild(newNode);
   }

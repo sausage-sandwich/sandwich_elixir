@@ -32,9 +32,8 @@ defmodule Sandwich.RecipesController do
       Map.values(recipe_params["recipe_ingredients"])
     )
 
-    %Recipe{}
-    |> Recipe.changeset(normalized_params)
-    |> Repo.insert()
+    normalized_params
+    |> Sandwich.Commands.Recipes.Create.call
     |> case do
       {:ok, _recipe} ->
         conn
