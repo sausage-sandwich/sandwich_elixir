@@ -58,6 +58,7 @@ defmodule Sandwich.RecipesController do
       "recipe_ingredients",
       Map.values(recipe_params["recipe_ingredients"])
     )
+
     Sandwich.Commands.Recipes.Update.call(id, normalized_params)
     |> case do
     {:ok, recipe} ->

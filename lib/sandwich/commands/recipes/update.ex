@@ -25,19 +25,6 @@ defmodule Sandwich.Commands.Recipes.Update do
   end
 
   def find_or_create_ingredient(title) do
-    IngredientByTitle.call(title) || create_ingredient(title)
-  end
-
-  # FIXME: it does not belong to this module
-  def create_ingredient(title) do
-    %Ingredient{}
-    |> Ingredient.changeset(%{"title" => title})
-    |> Repo.insert()
-    |> case do
-      {:ok, ingredient} ->
-        ingredient
-      {:error, _} ->
-        raise ArgumentError
-    end
+    IngredientByTitle.call(title) || Sandwich.Commands.Ingredients.Create.call(title)
   end
 end

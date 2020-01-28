@@ -16,7 +16,6 @@ defmodule Sandwich.Commands.Recipes.Create do
       )
     )
     params = Map.replace!(recipe_params, "recipe_ingredients", recipe_ingredients)
-    # IO.puts(inspect(params))
 
     %Recipe{}
     |> Recipe.changeset(params)
@@ -24,19 +23,6 @@ defmodule Sandwich.Commands.Recipes.Create do
   end
 
   def find_or_create_ingredient(title) do
-    IngredientByTitle.call(title) || create_ingredient(title)
-  end
-
-  # FIXME: it does not belong to this module
-  def create_ingredient(title) do
-    %Ingredient{}
-    |> Ingredient.changeset(%{"title" => title})
-    |> Repo.insert()
-    |> case do
-      {:ok, ingredient} ->
-        ingredient
-      {:error, _} ->
-        raise ArgumentError
-    end
+    IngredientByTitle.call(title) || Sandwich.Commands.Ingredients.Create.call(title)
   end
 end
