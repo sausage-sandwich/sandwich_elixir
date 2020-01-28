@@ -57,7 +57,7 @@ defmodule Sandwich.RecipesControllerTest do
   test "PUT :update", %{conn: conn} do
     recipe = Repo.insert!(%Recipe{title: "title", body: "body"})
     new_title = "new title"
-    params = [recipe: [title: new_title, ingredients: [1]]]
+    params = %{"recipe" => %{"title" => new_title}}
 
     conn = put conn, recipes_path(conn, :update, recipe.id, params)
 

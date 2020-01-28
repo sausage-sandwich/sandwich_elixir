@@ -46,19 +46,19 @@ defmodule Sandwich.RecipesController do
   end
 
   def edit(conn, params) do
-    recipe = Repo.preload(Repo.get_by(Recipe, id: params["id"]), :recipe_ingredients)
-    ingredients = Repo.all(Ingredient)
+    recipe = Repo.preload(Repo.get_by(Recipe, id: params["id"]), recipe_ingredients: :ingredient)
     changeset = Recipe.changeset(recipe, %{})
 
-    render(conn, "edit.html", recipe: recipe, ingredients: ingredients, changeset: changeset)
+    render(conn, "edit.html", recipe: recipe, changeset: changeset)
   end
 
   def update(conn, %{"recipe" => recipe_params, "id" => id}) do
-    recipe = Repo.preload(Repo.get_by(Recipe, id: id), recipe_ingredients: :ingredient)
-
-    recipe
-    |> Recipe.changeset(recipe_params)
-    |> Repo.update()
+    normalized_params = Map.replace!(
+      recipe_params,
+      "recipe_ingredients",
+      Map.values(recipe_params["recipe_ingredients"])
+    )
+    Sandwich.Commands.Recipes.Update.call(id, normalized_params)
     |> case do
     {:ok, recipe} ->
       conn
@@ -66,7 +66,7 @@ defmodule Sandwich.RecipesController do
       |> redirect(to: recipes_path(conn, :show, recipe.id))
     {:error, %Ecto.Changeset{} = changeset} ->
       ingredients = Repo.all(Ingredient)
-      render(conn, "edit.html", changeset: changeset, recipe: recipe, ingredients: ingredients)
+      render(conn, "edit.html", changeset: changeset, ingredients: ingredients)
     end
   end
 end

@@ -38,6 +38,7 @@ defmodule Sandwich.Mixfile do
      {:phoenix_html, "~> 2.6"},
      {:phoenix_slime, "~> 0.12.0"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
+     {:assertions, ">= 0.0.0", only: :test},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 2.0"},
      {:plug_cowboy, "~> 2.0"},
