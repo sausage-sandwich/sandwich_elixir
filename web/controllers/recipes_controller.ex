@@ -26,13 +26,7 @@ defmodule Sandwich.RecipesController do
   end
 
   def create(conn, %{"recipe" => recipe_params}) do
-    normalized_params = Map.replace!(
-      recipe_params,
-      "recipe_ingredients",
-      Map.values(recipe_params["recipe_ingredients"])
-    )
-
-    normalized_params
+    normalized_params(recipe_params)
     |> Sandwich.Commands.Recipes.Create.call
     |> case do
       {:ok, _recipe} ->
@@ -53,13 +47,7 @@ defmodule Sandwich.RecipesController do
   end
 
   def update(conn, %{"recipe" => recipe_params, "id" => id}) do
-    normalized_params = Map.replace!(
-      recipe_params,
-      "recipe_ingredients",
-      Map.values(recipe_params["recipe_ingredients"])
-    )
-
-    Sandwich.Commands.Recipes.Update.call(id, normalized_params)
+    Sandwich.Commands.Recipes.Update.call(id, normalized_params(recipe_params))
     |> case do
     {:ok, recipe} ->
       conn
@@ -69,6 +57,10 @@ defmodule Sandwich.RecipesController do
       ingredients = Repo.all(Ingredient)
       render(conn, "edit.html", changeset: changeset, ingredients: ingredients)
     end
+  end
+
+  def normalized_params(params) do
+    Map.replace!(params, "recipe_ingredients", Map.values(params["recipe_ingredients"]))
   end
 end
 

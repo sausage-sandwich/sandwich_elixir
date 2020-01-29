@@ -11,9 +11,9 @@ defmodule Sandwich.Commands.Recipes.Update do
       Map.get(recipe_params, "recipe_ingredients", []),
       &(
         %{
-            ingredient_id: find_or_create_ingredient(&1["ingredient_title"]).id,
-            quantity: &1["quantity"],
-            unit: &1["unit"]
+            "ingredient_id" => find_or_create_ingredient(&1["ingredient_title"]).id,
+            "quantity" => &1["quantity"],
+            "unit" => &1["unit"]
         }
       )
     )
