@@ -14,7 +14,7 @@
     .nested-form
       = inputs_for f, :recipe_ingredients, fn p ->
         .nested-form-item-fields.form-group
-          = select p, :ingredient_id, Map.new(@ingredients, &({&1.title, &1.id})), class: "form-control"
+          = text_input p, :ingredient_title, class: "form-control"
           = number_input p, :quantity, class: "form-control"
           = select p, :unit, units, class: "form-control"
       .nested-form-add-button.btn.btn-warning Add
