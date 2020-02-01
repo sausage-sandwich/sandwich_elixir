@@ -1,7 +1,7 @@
 = link "All", to: recipes_path(@conn, :index), class: 'btn btn-success'
 = link "Edit", to: recipes_path(@conn, :edit, @recipe.id), class: 'btn btn-warning'
 .row
-  .col-md-8
+  .col-md-12
     h3 = @recipe.title
     = if @recipe.cover do
       = img_tag Sandwich.Recipe.CoverUploader.url({@recipe.cover.file_name, @recipe})

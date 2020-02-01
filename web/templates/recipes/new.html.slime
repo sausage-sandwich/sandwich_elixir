@@ -12,7 +12,7 @@
           = text_input p, :ingredient_title, class: "form-control"
           = number_input p, :quantity, class: "form-control"
           = select p, :unit, units, class: "form-control"
-        .js-repeatable-block-add-button.btn.btn-warning Add
+      .js-repeatable-block-add-button.btn.btn-warning Add
 
   .form-group
     = label f, :body, class: "control-label"
