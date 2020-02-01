@@ -19,18 +19,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   function addBlock(container) {
-    var block = container.getElementsByClassName("js-repeatable-block");
-    var newNode = createNewNode(block);
-    block.appendChild(newNode);
+    var blocks = Array.from(container.getElementsByClassName("js-repeatable-block"));
+    var newNode = createNewNode(blocks);
+    container.appendChild(newNode);
   }
 
-  function createNewNode(block) {
-    var firstItemNumber = 0;
-    var itemNumber = block.length;
-    var newNode = block[firstItemNumber].cloneNode(true);
+  function createNewNode(blocks) {
+    var firstItemIndex = 0;
+    var newItemIndex = blocks.length; // last item index + 1 = (blocks.length - 1) + 1
+    var newNode = blocks[firstItemIndex].cloneNode(true);
     Array.from(newNode.querySelectorAll("input,select")).forEach(function(input) {
-      input.setAttribute("name", input.name.replace(firstItemNumber, itemNumber));
-      input.setAttribute("id", input.id.replace(firstItemNumber, itemNumber));
+      input.setAttribute("name", input.name.replace(firstItemIndex, newItemIndex));
+      input.setAttribute("id", input.id.replace(firstItemIndex, newItemIndex));
       clearValue(input);
     })
     return newNode;
