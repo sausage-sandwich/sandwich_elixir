@@ -1,23 +1,21 @@
 defmodule Sandwich.IngredientsController do
   use Sandwich.Web, :controller
 
+  alias Sandwich.Repo
+  alias Sandwich.Ingredient
+
   def index(conn, _params) do
-    alias Sandwich.Repo
-    alias Sandwich.Ingredient
     ingredients = Repo.all(Ingredient)
 
     render conn, "index.html", ingredients: ingredients
   end
 
   def new(conn, _params) do
-    alias Sandwich.Ingredient
     changeset = Ingredient.changeset(%Ingredient{}, %{})
     render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"ingredient" => ingredient_params}) do
-    alias Sandwich.Ingredient
-    alias Sandwich.Repo
     %Ingredient{}
     |> Ingredient.changeset(ingredient_params)
     |> Repo.insert()
