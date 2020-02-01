@@ -25,12 +25,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   function createNewNode(blocks) {
-    var firstItemNumber = 0;
-    var itemNumber = blocks.length;
-    var newNode = blocks[firstItemNumber].cloneNode(true);
+    var firstItemIndex = 0;
+    var newItemIndex = blocks.length; // last item index + 1 = (blocks.length - 1) + 1
+    var newNode = blocks[firstItemIndex].cloneNode(true);
     Array.from(newNode.querySelectorAll("input,select")).forEach(function(input) {
-      input.setAttribute("name", input.name.replace(firstItemNumber, itemNumber));
-      input.setAttribute("id", input.id.replace(firstItemNumber, itemNumber));
+      input.setAttribute("name", input.name.replace(firstItemIndex, newItemIndex));
+      input.setAttribute("id", input.id.replace(firstItemIndex, newItemIndex));
       clearValue(input);
     })
     return newNode;
