@@ -34,7 +34,7 @@ defmodule Sandwich.RecipesControllerTest do
           body: "body",
           title: recipe_title,
           recipe_ingredients: %{
-            "0" => %{ingredient_id: ingredient.id, quantity: 100.0, unit: "г"}
+            "0" => %{ingredient_title: ingredient.title, quantity: 100.0, unit: "г"}
           }
         }
       }
