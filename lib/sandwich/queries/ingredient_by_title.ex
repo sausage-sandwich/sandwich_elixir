@@ -5,10 +5,9 @@ defmodule Sandwich.Queries.IngredientByTitle do
   alias Sandwich.Repo
 
   def call(query) do
-    like_term = "%#{query}%"
     results = Repo.all(
       from ingredient in Ingredient,
-      where: ilike(ingredient.title, ^like_term),
+      where: ingredient.title == ^query,
       limit: 1
     )
     List.first(results)

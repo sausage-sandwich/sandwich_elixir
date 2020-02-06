@@ -10,14 +10,13 @@
   = file_input f, :cover, class: "form-control-file"
   = error_tag f, :cover
 
-  .form-inline
-    .nested-form
-      = inputs_for f, :recipe_ingredients, fn p ->
-        .nested-form-item-fields.form-group
-          = text_input p, :ingredient_title, class: "form-control"
-          = number_input p, :quantity, class: "form-control"
-          = select p, :unit, units, class: "form-control"
-      .nested-form-add-button.btn.btn-warning Add
+  .form-inline.js-repeatable
+    = inputs_for f, :recipe_ingredients, fn p ->
+      .js-repeatable-block.form-group
+        = text_input p, :ingredient_title, class: "form-control", value: p.data.ingredient.title
+        = number_input p, :quantity, class: "form-control"
+        = select p, :unit, units, class: "form-control"
+    .js-repeatable-block-add-button.btn.btn-warning Add
 
   .form-group
     = label f, :body, class: "control-label"
