@@ -10,7 +10,7 @@
       = inputs_for f, :recipe_ingredients, fn p ->
         .js-repeatable-block.form-group
           = text_input p, :ingredient_title, class: "form-control"
-          = number_input p, :quantity, class: "form-control"
+          = number_input p, :quantity, class: "form-control", step: "any"
           = select p, :unit, units, class: "form-control"
       .js-repeatable-block-add-button.btn.btn-warning Add
 
