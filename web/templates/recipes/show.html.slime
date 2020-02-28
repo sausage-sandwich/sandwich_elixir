@@ -9,7 +9,7 @@
       = for recipe_ingredient <- @recipe.recipe_ingredients do
         tr
           td.text-right
-            = Enum.join(quantity_in_metric(recipe_ingredient.unit, recipe_ingredient.quantity), " ")
-          td
             = recipe_ingredient.ingredient.title
+          td
+            = Enum.join(quantity_in_metric(recipe_ingredient.unit, recipe_ingredient.quantity), " ")
     = text_to_html(@recipe.body)
