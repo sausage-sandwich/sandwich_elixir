@@ -10,14 +10,6 @@ defmodule Sandwich.RecipesView do
       "l",
       "pound",
       "ounce",
-      "us_cup",
-      "us_liquid_gallon",
-      "us_liquid_quart",
-      "us_liquid_pint",
-      "us_legal_cup",
-      "us_liquid_ounce",
-      "us_tablespoon",
-      "us_teaspoon",
       "imperial_gallon",
       "imperial_quart",
       "imperial_pint",
@@ -35,8 +27,8 @@ defmodule Sandwich.RecipesView do
     in_metric = Map.get(any_to_metric(), unit)
 
     case in_metric do
-      nil -> [quantity, unit]
-      _ -> [Float.round(quantity * Map.get(in_metric, "quantity"), 0), Map.get(in_metric, "unit")]
+      nil -> [Kernel.trunc(quantity), unit]
+      _ -> [Kernel.trunc(quantity * Map.get(in_metric, "quantity")), Map.get(in_metric, "unit")]
     end
   end
 

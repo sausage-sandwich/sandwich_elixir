@@ -1,0 +1,65 @@
+## `msgid`s in this file come from POT (.pot) files.
+##
+## Do not add, change, or remove `msgid`s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
+##
+## Use `mix gettext.extract --merge` or `mix gettext.merge`
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: en\n"
+"Plural-Forms: nplurals=2\n"
+
+#, elixir-format
+#: web/views/recipes_view.ex:5
+msgid "kg"
+msgstr "%{count} kg"
+
+msgid "g"
+msgstr "%{count} g"
+
+msgid "pieces"
+msgstr "%{count} pieces"
+
+msgid "ml"
+msgstr "%{count} ml"
+
+msgid "l"
+msgstr "%{count} l"
+
+msgid "pound"
+msgstr "%{count} pounds"
+
+msgid "ounce"
+msgstr "%{count} ounces"
+
+msgid "imperial_gallon"
+msgstr "%{count} gallons"
+
+msgid "imperial_quart"
+msgstr "%{count} quarts"
+
+msgid "imperial_pint"
+msgstr "pint"
+
+msgid "imperial_cup"
+msgstr "cup"
+
+msgid "imperial_fluid_ounce"
+msgstr "fluid ounce"
+
+msgid "imperial_tablespoon"
+msgstr "tbsp"
+
+msgid "imperial_teaspoon"
+msgstr "tsp"
+
+msgid "glass"
+msgstr "glass"
+
+msgid "handful"
+msgstr "handful"
+
+msgid "pinch"
+msgstr "pinch"
