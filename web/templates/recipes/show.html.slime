@@ -11,5 +11,6 @@
           td.text-right
             = recipe_ingredient.ingredient.title
           td
-            = Enum.join(quantity_in_metric(recipe_ingredient.unit, recipe_ingredient.quantity), " ")
+            - [metric_quantity, metric_unit] = quantity_in_metric(recipe_ingredient.unit, recipe_ingredient.quantity)
+            = Gettext.gettext(Sandwich.Gettext, metric_unit, count: metric_quantity)
     = text_to_html(@recipe.body)
