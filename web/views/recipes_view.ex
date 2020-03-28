@@ -27,8 +27,8 @@ defmodule Sandwich.RecipesView do
     in_metric = Map.get(any_to_metric(), unit)
 
     case in_metric do
-      nil -> [Kernel.trunc(quantity), unit]
-      _ -> [Kernel.trunc(quantity * Map.get(in_metric, "quantity")), Map.get(in_metric, "unit")]
+      nil -> [Float.round(quantity, 2), unit]
+      _ -> [Float.round(quantity * Map.get(in_metric, "quantity"), 2), Map.get(in_metric, "unit")]
     end
   end
 
