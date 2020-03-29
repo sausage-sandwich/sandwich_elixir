@@ -6,7 +6,7 @@
     = text_input f, :title, class: "form-control"
     = error_tag f, :title
 
-    .form-inline.js-repeatable
+    .js-repeatable.form-inline
       = inputs_for f, :recipe_ingredients, fn p ->
         .js-repeatable-block.form-group
           = text_input p, :ingredient_title, class: "form-control"
