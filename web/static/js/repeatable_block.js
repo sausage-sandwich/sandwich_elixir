@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
   function addBlock(container) {
     var blocks = Array.from(container.getElementsByClassName("js-repeatable-block"));
     var newNode = createNewNode(blocks);
-    container.appendChild(newNode);
+    container.insertBefore(newNode, blocks[blocks.length - 1].nextSibling);
+    newNode.querySelectorAll("input,select")[0].focus();
   }
 
   function createNewNode(blocks) {
