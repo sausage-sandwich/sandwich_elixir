@@ -3,14 +3,22 @@
 .row
   .col-md-12
     h3.text-uppercase = @recipe.title
+.row
+  .col-md-12
     = if @recipe.cover do
       = img_tag Sandwich.Recipe.CoverUploader.url({@recipe.cover.file_name, @recipe})
-    table.table.table-striped.text-uppercase
+
+.row
+  .col-md-6
+    h5 Ingredients
+    table.table.table-striped
       = for recipe_ingredient <- @recipe.recipe_ingredients do
         tr
-          td.text-right
+          td.text-right.text-capitalize
             = recipe_ingredient.ingredient.title
           td
             - [metric_quantity, metric_unit] = quantity_in_metric(recipe_ingredient.unit, recipe_ingredient.quantity)
             = Gettext.gettext(Sandwich.Gettext, metric_unit, count: metric_quantity)
+  .col-md-6
+    h5 Instructions
     = text_to_html(@recipe.body)
