@@ -20,7 +20,7 @@
 
   .form-group
     = label f, :body, class: "control-label"
-    = textarea f, :body, class: "form-control"
+    = textarea f, :body, class: "form-control", rows: 12
     = error_tag f, :body
 
   .form-group
