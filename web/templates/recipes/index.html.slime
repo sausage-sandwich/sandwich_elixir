@@ -1,7 +1,7 @@
 .row
   = for recipe <- @recipes do
     .col-md-4
-      .card
+      .card.mb-2
         .card-img-top
           img src="#{static_path(@conn, "/images/300x200.jpg")}" width="100%"
         .card-body
