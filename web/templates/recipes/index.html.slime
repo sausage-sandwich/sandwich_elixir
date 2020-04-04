@@ -1,7 +1,9 @@
-= link "New", to: recipes_path(@conn, :new), class: 'btn btn-success'
-
-= for recipe <- @recipes do
-  .row
-    .col-md-12
-      h3= link recipe.title, to: recipes_path(@conn, :show, recipe.id)
-      = recipe.body
+.row
+  = for recipe <- @recipes do
+    .col-md-4
+      .card
+        .card-img-top
+          img src="#{static_path(@conn, "/images/300x200.jpg")}" width="100%"
+        .card-body
+          h5.card-title
+            = link recipe.title, to: recipes_path(@conn, :show, recipe.id)

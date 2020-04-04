@@ -1,12 +1,13 @@
-= link "All", to: recipes_path(@conn, :index), class: 'btn btn-success'
-= link "Edit", to: recipes_path(@conn, :edit, @recipe.id), class: 'btn btn-warning'
+
 .row
   .col-md-12
-    h3.text-uppercase = @recipe.title
+    h3.text-capitalize
+      = @recipe.title
+      i = link "", to: recipes_path(@conn, :edit, @recipe.id), class: 'far fa-edit ml-2'
+
 .row
-  .col-md-12
-    = if @recipe.cover do
-      = img_tag Sandwich.Recipe.CoverUploader.url({@recipe.cover.file_name, @recipe})
+  = if @recipe.cover do
+    = img_tag Sandwich.Recipe.CoverUploader.url({@recipe.cover.file_name, @recipe}), class: 'col-md-8'
 
 .row
   .col-md-6
