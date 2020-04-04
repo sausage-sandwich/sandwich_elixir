@@ -1,23 +1,24 @@
-= link "<- Back", to: recipes_path(@conn, :index)
+.row
+  .col-md-8.offset-md-2
+    = form_for @changeset, recipes_path(@conn, :create), [multipart: true], fn f ->
+      .form-group
+        = label f, :title, class: "control-label"
+        = text_input f, :title, class: "form-control"
+        = error_tag f, :title
 
-= form_for @changeset, recipes_path(@conn, :create), fn f ->
-  .form-group
-    = label f, :title, class: "control-label"
-    = text_input f, :title, class: "form-control"
-    = error_tag f, :title
+      = label f, :ingredients, class: "control-label"
+      .js-repeatable.form-inline
+        = inputs_for f, :recipe_ingredients, fn p ->
+          .js-repeatable-block.form-group
+            = text_input p, :ingredient_title, class: "form-control mb-2 mr-2", value: p.data.ingredient.title
+            = number_input p, :quantity, class: "form-control mb-2 mr-2", step: "any"
+            = select p, :unit, units, class: "form-control mb-2 mr-2"
+        .js-repeatable-block-add-button.btn.btn-warning.mb-2.mr-2 Add
 
-    .js-repeatable.form-inline
-      = inputs_for f, :recipe_ingredients, fn p ->
-        .js-repeatable-block.form-group
-          = text_input p, :ingredient_title, class: "form-control"
-          = number_input p, :quantity, class: "form-control", step: "any"
-          = select p, :unit, units, class: "form-control"
-      .js-repeatable-block-add-button.btn.btn-warning Add
+      .form-group
+        = label f, :body, class: "control-label"
+        = textarea f, :body, class: "form-control", rows: 12
+        = error_tag f, :body
 
-  .form-group
-    = label f, :body, class: "control-label"
-    = textarea f, :body, class: "form-control", rows: 12
-    = error_tag f, :body
-
-  .form-group
-    = submit "Submit", class: "btn btn-primary"
+      .form-group
+        = submit "Submit", class: "btn btn-primary"

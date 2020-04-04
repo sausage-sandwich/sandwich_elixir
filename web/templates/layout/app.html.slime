@@ -7,16 +7,19 @@ html lang="en"
     meta content="" name="description"
     meta content="" name="author"
     link rel="stylesheet" href="#{static_path(@conn, "/css/app.css")}"
+    script src="https://kit.fontawesome.com/8ac9ae90b8.js" crossorigin="anonymous"
     script src="#{static_path(@conn, "/js/app.js")}"
     title Hello Sandwich!
 
   body
     .container
       header.header
-        nav role="navigation"
-
-      p.alert.alert-info role="alert"= get_flash(@conn, :info)
-      p.alert.alert-danger role="alert"= get_flash(@conn, :error)
+        nav.navbar.navbar-expand-lg.navbar-light.bg-light.mb-4 role="navigation"
+          .container
+            .collapse.navbar-collapse
+              .navbar-nav
+                = link "Sausage Sandwich", to: recipes_path(@conn, :index), class: 'navbar-brand'
+                = link "New Recipe", to: recipes_path(@conn, :new), class: 'btn btn-dark'
 
       main role="main"
         = render @view_module, @view_template, assigns
